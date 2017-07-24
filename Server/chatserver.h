@@ -16,7 +16,8 @@ signals:
     void newConnection();
 public slots:
     void acceptConnection();
-    void readClient();
+    void readFromClient();
+    void acceptError(QAbstractSocket::SocketError);
 private:
     //sql语句类型
     enum requestType {EXC, QUE};
@@ -24,8 +25,10 @@ private:
     enum ExecResult{FAILED, SUCCESS};
     QTcpServer *server;
     QTcpSocket *socket;
-    //服务端返回的json数组
-    QJsonArray SJson;
+    //接收缓冲区
+    QByteArray buffer;
+    //通信数据大小
+    int bufferSize;
     //从客户端接收的sql语句
     QJsonObject CJson;
     //存放客户端发送的sql语句
@@ -33,11 +36,14 @@ private:
     //返回sql执行成功或失败消息
     void pushMessage(ExecResult);
     //返回查询结果
-    void pushData();
+    void pushData(QJsonArray);
     //用json存放查询结果
-    void jsonCoding(QSqlQuery);
+    QJsonArray jsonCoding(QSqlQuery);
     //解析客户端发送的json
     requestType jsonDiscoding();
+    //记录客户端的ip、操作和操作时间
+    void recordClientAction(QString);
+    void readComplete();
 };
 
 #endif // CHATSERVER_H

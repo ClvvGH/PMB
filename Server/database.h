@@ -9,6 +9,7 @@ public:
     static bool DBConnect();
     static bool DBExecute(QString);
     static QSqlQuery DBQuery(QString);
+    static bool DBExecuteWithoutOutput(QString);
 };
 
 #endif // DATABASE_H

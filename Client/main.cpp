@@ -1,18 +1,19 @@
-#include "widget.h"
 #include <QApplication>
-#include <chatclient.h>
-
+#include <network/chatclient.h>
+#include <loginview.h>
+#include <doctormainview.h>
+int identity = 0;
+int ID = 0;
 ChatClient *cc = new ChatClient();
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    if (!cc->connectToServer())
+    LoginView loginView;
+    while (!cc->connectToServer())
     {
         qDebug() << "failed in connecting to server";
     }
-    Widget w;
-    w.show();
-
+    loginView.show();
     return a.exec();
 }

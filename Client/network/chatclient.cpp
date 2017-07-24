@@ -4,6 +4,8 @@ ChatClient::ChatClient(QObject *parent) :
     QObject(parent)
 {
     bufferSize =0;
+    getSet = false;
+    getMsg = 0;
     client = new QTcpSocket();
     //建立连接以后，服务器若是有返回消息会自动调用readyRead()信号
     connect(client, SIGNAL(readyRead()), this, SLOT(readReturn()));
@@ -11,6 +13,7 @@ ChatClient::ChatClient(QObject *parent) :
 void ChatClient::sendSql(QString sql, ChatClient::requestType type)
 {
     CJson.insert("sql",sql);
+    qDebug() << "sql:" +sql;
     QByteArray arr;
     if (type == EXC )
     {
@@ -18,10 +21,11 @@ void ChatClient::sendSql(QString sql, ChatClient::requestType type)
         CJson.insert("type","execute");
         QJsonDocument *doc = new QJsonDocument(CJson);
         arr = doc->toBinaryData();
+        qDebug() << "Binary set size to send:";
+        qDebug() << arr.size();
         arr.insert(0,QString("%1").arg(arr.size(),4,16,QChar('0')));
         arr.insert(4,QString("0"));
         client->write(arr);
-        qDebug() << "sending sql statment to host";
         if (!client->waitForBytesWritten(3000))
         {
             //向服务器发送数据超时
@@ -40,7 +44,7 @@ void ChatClient::sendSql(QString sql, ChatClient::requestType type)
         else
         {
             //返回成功
-            qDebug() << "get result successfully";
+            qDebug() << "get message successfully";
         }
     }
     else
@@ -48,6 +52,8 @@ void ChatClient::sendSql(QString sql, ChatClient::requestType type)
         CJson.insert("type","query");
         QJsonDocument *doc = new QJsonDocument(CJson);
         arr = doc->toBinaryData();
+        qDebug() << "Binary set size to send:";
+        qDebug() << arr.size();
         arr.insert(0,QString("%1").arg(arr.size(),4,16,QChar('0')));
         arr.insert(4,QString("0"));
         client->write(arr);
@@ -55,6 +61,7 @@ void ChatClient::sendSql(QString sql, ChatClient::requestType type)
         if (!client->waitForBytesWritten(3000))
         {
             qDebug() << "failed in sending sql ";
+
             emit sendOverTime();
         }
         else
@@ -68,8 +75,23 @@ void ChatClient::sendSql(QString sql, ChatClient::requestType type)
         }
         else
         {
-            qDebug() << "get result successfully";
+            qDebug() << "get result set successfully";
         }
+    }
+    if(getSet)
+    {
+        emit getResultSet(SJson);
+        getSet =false;
+    }
+    if(getMsg ==1)
+    {
+        emit excSuccessfully();
+        getMsg = 0;
+    }
+    else if(getMsg ==2)
+    {
+        emit failedInExc();
+        getMsg = 0;
     }
 }
 
@@ -106,10 +128,8 @@ void ChatClient::readResultSet()
     QJsonDocument doc = QJsonDocument::fromBinaryData(buffer);
     buffer.clear();
     bufferSize =0;
-    QJsonArray SJson = doc.array();
-    qDebug() << "readRsultSet";
-    qDebug() << SJson.size();
-    emit getResultSet(SJson);
+    SJson = doc.array();
+    getSet = true;
 }
 
 void ChatClient::readMessage()
@@ -122,12 +142,12 @@ void ChatClient::readMessage()
     if (!QString::compare(result,"success"))
     {
         qDebug() << "sql statment execute successfully";
-        emit excSuccessfully();
+        getMsg = 1;
     }
     else
     {
         qDebug() << "failed in executing";
-        emit failedInExc();
+        getMsg =2;
     }
 }
 

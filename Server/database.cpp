@@ -10,7 +10,8 @@ bool DataBase::DBConnect()
     db.setHostName("localhost");
     db.setDatabaseName("hospital");
     db.setUserName("root");
-    db.setPassword("1234");
+    db.setPassword("");
+    db.setPort(3306);
     if(!db.open())
     {
         return false;
@@ -22,31 +23,43 @@ bool DataBase::DBExecute(QString sql)
 {
     QSqlQuery query;
     bool flag = query.exec(sql);
-    qDebug() << query.executedQuery();
+    qDebug() << "DataBase: executing:"+query.executedQuery();
     if(flag == false)
     {
-        qDebug() << "failed";
+        qDebug() << "result:failed";
         return 0;
     }
     else
     {
-        qDebug() << "success";
+        qDebug() << "result:success";
         return 1;
     }
 }
-
+bool DataBase::DBExecuteWithoutOutput(QString sql)
+{
+    QSqlQuery query;
+    bool flag = query.exec(sql);
+    if(flag == false)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
 QSqlQuery DataBase::DBQuery(QString sql)
 {
     QSqlQuery query;
     bool flag = query.exec(sql);
-    qDebug() << query.executedQuery();
+    qDebug() << "DataBase: query: "+query.executedQuery();
     if(flag == false)
     {
-        qDebug() << "failed";
+        qDebug() << "result:failed";
     }
     else
     {
-        qDebug() << "success";
+        qDebug() << "result:success";
     }
     return query;
 }

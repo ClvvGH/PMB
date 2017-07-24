@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>picture/doctor.jpg</file>
+        <file>picture/examination.jpg</file>
+        <file>picture/patient.jpg</file>
+        <file>picture/treatment.jpg</file>
+        <file>picture/ground.jpg</file>
+        <file>picture/ground2.jpg</file>
+        <file>picture/ground3.jpg</file>
+    </qresource>
+</RCC>

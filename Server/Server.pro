@@ -13,15 +13,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp \
+        mainview.cpp \
     database.cpp \
     chatserver.cpp
 
-HEADERS  += widget.h \
+HEADERS  += mainview.h \
     database.h \
     chatserver.h
 
-FORMS    += widget.ui
+FORMS    += mainview.ui\
+
 
 QT  += sql
 QT += network
+
+RESOURCES += \
+    picture.qrc

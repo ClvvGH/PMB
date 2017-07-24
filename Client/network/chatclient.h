@@ -45,6 +45,11 @@ private:
     int bufferSize;
     //返回类型
     returnType type;
+    QJsonArray SJson;
+    bool getSet;
+    // 0没数据，1成功 2失败
+    int getMsg;
+
 };
 
 #endif // CHATCLIENT_H
