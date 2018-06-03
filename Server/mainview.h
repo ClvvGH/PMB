@@ -3,7 +3,6 @@
 #include <QSqlTableModel>
 #include <QWidget>
 #include <QMessageBox>
-#include <SearchView.h>
 #include <QSqlError>
 #include <QDebug>
 #include <QSqlQuery>

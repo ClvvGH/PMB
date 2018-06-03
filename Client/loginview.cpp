@@ -30,28 +30,28 @@ void LoginView::on_LoginButton_clicked()
     }
     if(flag && ui->DoctorButton->isChecked())
     {
-        connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+        connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
         cc->sendSql("select * from doctor where username = '"+ui->username->text()+"' && password ='"+ui->password->text()+"';",ChatClient::QUE);
     }
     else if (flag && ui->PatientButton->isChecked())
     {
-        connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+        connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
         cc->sendSql("select * from patient where username = '"+ui->username->text()+"' && password ='"+ui->password->text()+"';",ChatClient::QUE);
     }
 }
 //获取服务器返回数据，当服务器传回数据时被调用
-void LoginView::getResult(QJsonArray arr)
+void LoginView::getResult(QList<QVariantMap*> resultSet)
 {
-    if(!arr.isEmpty())
+    if(!resultSet.isEmpty())
     {
         qDebug() << "密码验证正确";
         if (ui->DoctorButton->isChecked())
         {
-            ID = arr.at(0).toObject().take("DId").toInt();
+            ID = resultSet.at(0)->take("DId").toInt();//notices! whether the data is int type
         }
         else
         {
-            ID = arr.at(0).toObject().take("PId").toInt();
+            ID = resultSet.at(0)->take("PId").toInt();
         }
         emit passwordCorrect();
     }
@@ -59,7 +59,7 @@ void LoginView::getResult(QJsonArray arr)
     {
         emit passwordWrong();
     }
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
 }
 
 void LoginView::on_Quitbutton_clicked()
@@ -72,13 +72,13 @@ void LoginView::on_RegisterButton_clicked()
 {
     if(ui->DoctorButton->isChecked())
     {
-        DoctorRegisterView drv;
-        drv.exec();
+        DoctorRegisterView *drv = new DoctorRegisterView();
+        drv->exec();
     }
     else if (ui->PatientButton->isChecked())
     {
-        PatientRegisterView prv;
-        prv.exec();
+        PatientRegisterView *prv = new PatientRegisterView();
+        prv->exec();
     }
     else
     {
@@ -114,6 +114,7 @@ void LoginView::login()
         DoctorMainView *dmv = new DoctorMainView();
         dmv->show();
         this->close();
+        qDebug() << "login!";
     }
     else if (ui->PatientButton->isChecked())
     {
@@ -121,6 +122,7 @@ void LoginView::login()
         PatientMainView *pmv = new PatientMainView();
         pmv->show();
         this->close();
+                    qDebug() << "failed in login";
     }
     else
     {

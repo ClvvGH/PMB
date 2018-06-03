@@ -9,9 +9,9 @@ TreatListView::TreatListView(int PId,QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignHCenter);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget->verticalHeader()->hide();
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
     cc->sendSql("Select * from treatment  natural join doctor where PId = '" +QString("%1").arg(PId)+"';",ChatClient::QUE);
 }
 
@@ -25,10 +25,10 @@ void TreatListView::on_backButton_clicked()
     this->close();
 }
 
-void TreatListView::getResult(QJsonArray arr)
+void TreatListView::getResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
-    int row = arr.size();
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    int row = resultSet.size();
     QStringList keys;
     ui->tableWidget->setRowCount(row);
     ui->tableWidget->setColumnCount(4);
@@ -48,9 +48,9 @@ void TreatListView::getResult(QJsonArray arr)
         doctorName->setTextAlignment(Qt::AlignCenter);
         date->setTextAlignment(Qt::AlignCenter);
         detail->setTextAlignment(Qt::AlignCenter);
-        disease->setText(arr.at(i).toObject().take("diseaseName").toString());
-        doctorName->setText(arr.at(i).toObject().take("name").toString());
-        date->setText(arr.at(i).toObject().take("date").toString());
+        disease->setText(resultSet.at(i)->take("diseaseName").toString());
+        doctorName->setText(resultSet.at(i)->take("name").toString());
+        date->setText(resultSet.at(i)->take("date").toString());
         detail->setIcon(QIcon(":/resource/jump.png"));
         ui->tableWidget->setItem(i,0,disease);
         ui->tableWidget->setItem(i,1,doctorName);

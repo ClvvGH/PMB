@@ -5,8 +5,7 @@
 #include <doctorregisterview.h>
 #include <QDebug>
 #include <patientregisterview.h>
-#include <network\chatclient.h>
-#include <QJsonArray>
+#include <network/chatclient.h>
 #include <QMessageBox>
 #include <doctormainview.h>
 #include <patientmainview.h>
@@ -33,7 +32,7 @@ private slots:
     void on_RegisterButton_clicked();
     void on_DoctorButton_clicked();
     void on_PatientButton_clicked();
-    void getResult(QJsonArray);
+    void getResult(QList<QVariantMap*>);
     void login();
     void sendWrongMessage();
 private:

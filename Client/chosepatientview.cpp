@@ -8,8 +8,9 @@ ChosePatientView::ChosePatientView(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignHCenter);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget->verticalHeader()->hide();
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 ChosePatientView::~ChosePatientView()
@@ -29,14 +30,14 @@ void ChosePatientView::on_queryButton_clicked()
         sql += "and name like '%"+ui->name->text()+"%'";
     }
     sql += ";";
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
     cc->sendSql(sql,ChatClient::QUE);
 }
 
-void ChosePatientView::getResult(QJsonArray arr)
+void ChosePatientView::getResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
-    if (arr.isEmpty())
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    if (resultSet.isEmpty())
     {
         QMessageBox msgBox;
         msgBox.setText("没有结果");
@@ -45,7 +46,7 @@ void ChosePatientView::getResult(QJsonArray arr)
     }
     else
     {
-        int row = arr.size();
+        int row = resultSet.size();
         QStringList keys;
         ui->tableWidget->setRowCount(row);
         ui->tableWidget->setColumnCount(5);
@@ -55,7 +56,6 @@ void ChosePatientView::getResult(QJsonArray arr)
         keys.append("年龄");
         keys.append("详情");
         ui->tableWidget->setHorizontalHeaderLabels(keys);
-        ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         for (int i=0;i<row;i++)
         {
             QTableWidgetItem *id = new QTableWidgetItem();
@@ -67,10 +67,10 @@ void ChosePatientView::getResult(QJsonArray arr)
             sex->setTextAlignment(Qt::AlignCenter);
             age->setTextAlignment(Qt::AlignCenter);
             detail->setTextAlignment(Qt::AlignCenter);
-            id->setText(QString("%1").arg(arr.at(i).toObject().take("PId").toInt()));
-            name->setText(arr.at(i).toObject().take("name").toString());
-            sex->setText(arr.at(i).toObject().take("sex").toString());
-            age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-arr.at(i).toObject().take("bornYear").toInt()+1));
+            id->setText(resultSet.at(i)->take("id").toString());
+            name->setText(resultSet.at(i)->take("name").toString());
+            sex->setText(resultSet.at(i)->take("sex").toString());
+            age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-resultSet.at(i)->take("bornYear").toString().toInt()+1));
             detail->setIcon(QIcon(":/resource/jump.png"));
             ui->tableWidget->setItem(i,0,id);
             ui->tableWidget->setItem(i,1,name);

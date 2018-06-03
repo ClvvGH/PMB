@@ -7,10 +7,10 @@ DoctorListView::DoctorListView(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignHCenter);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getAndSetResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getAndSetResult(QList<QVariantMap*>)));
     cc->sendSql("select * from doctor",ChatClient::QUE);
 
 }
@@ -20,9 +20,10 @@ DoctorListView::~DoctorListView()
     delete ui;
 }
 
-void DoctorListView::getAndSetResult(QJsonArray arr)
+void DoctorListView::getAndSetResult(QList<QVariantMap*> resultSet)
 {
-    int row = arr.size();
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getAndSetResult(QList<QVariantMap*>)));
+    int row = resultSet.size();
     QStringList keys;
     keys.append("姓名");
     keys.append("性别");
@@ -39,11 +40,11 @@ void DoctorListView::getAndSetResult(QJsonArray arr)
         QTableWidgetItem *department = new QTableWidgetItem();
         QTableWidgetItem *position = new QTableWidgetItem();
         QTableWidgetItem *tel = new QTableWidgetItem();
-        name->setText(arr.at(i).toObject().take("name").toString());
-        sex->setText(arr.at(i).toObject().take("sex").toString());
-        department->setText(arr.at(i).toObject().take("department").toString());
-        position->setText(arr.at(i).toObject().take("position").toString());
-        tel->setText(arr.at(i).toObject().take("tel").toString());
+        name->setText(resultSet.at(i)->take("name").toString());
+        sex->setText(resultSet.at(i)->take("sex").toString());
+        department->setText(resultSet.at(i)->take("department").toString());
+        position->setText(resultSet.at(i)->take("position").toString());
+        tel->setText(resultSet.at(i)->take("tel").toString());
         ui->tableWidget->setItem(i,0,name);
         ui->tableWidget->setItem(i,1,sex);
         ui->tableWidget->setItem(i,2,department);

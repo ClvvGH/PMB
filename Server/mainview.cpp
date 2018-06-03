@@ -10,7 +10,7 @@ MainView::MainView(QWidget *parent) :
     queryModel= new QSqlQueryModel();
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     //ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     this->setWindowFlags(Qt::WindowCloseButtonHint);
     this->setFixedSize(820,560);
     setItemEnable(false);

@@ -14,12 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainview.cpp \
-    database.cpp \
-    chatserver.cpp
+    database/database.cpp \
+    network/chatserver.cpp \
+    network/servercontroller.cpp\
+    network/chatthread.cpp
 
 HEADERS  += mainview.h \
-    database.h \
-    chatserver.h
+    database/database.h \
+    network/chatserver.h \
+    network/servercontroller.h\
+    network/chatthread.h
 
 FORMS    += mainview.ui\
 
@@ -27,5 +31,4 @@ FORMS    += mainview.ui\
 QT  += sql
 QT += network
 
-RESOURCES += \
-    picture.qrc
+

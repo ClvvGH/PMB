@@ -13,59 +13,57 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    network\chatclient.cpp \
+    network/chatclient.cpp \
     doctorregisterview.cpp \
-    loginview.cpp \
+    loginview.cpp\
     patientregisterview.cpp \
     doctormainview.cpp \
-    selfinfoview.cpp \
+    patientmainview.cpp \
+    selfinfoview.cpp\
     securityinfoview.cpp \
-    changepasswordview.cpp \
-    doctorlistview.cpp \
-    model\jsonmodel.cpp \
-    patientinfoview.cpp \
-    patientlistview.cpp \
-    treatview.cpp \
-    treatlistview.cpp \
-    treatinfoview.cpp \
-    chosepatientview.cpp \
-    patientmainview.cpp
+    changepasswordview.cpp\
+    chosepatientview.cpp\
+    doctorlistview.cpp\
+    patientinfoview.cpp\
+    patientlistview.cpp\
+    treatinfoview.cpp\
+    treatlistview.cpp\
+    treatview.cpp\
 
 HEADERS  += \
-    network\chatclient.h \
+    network/chatclient.h \
     doctorregisterview.h \
     loginview.h \
-    patientregisterview.h \
+    patientregisterview.h\
     doctormainview.h \
+    patientmainview.h \
     selfinfoview.h \
-    securityinfoview.h \
-    changepasswordview.h \
-    doctorlistview.h \
-    model\jsonmodel.h \
-    patientinfoview.h \
-    patientlistview.h \
-    treatview.h \
-    treatlistview.h \
-    treatinfoview.h \
-    chosepatientview.h \
-    patientmainview.h
+    securityinfoview.h\
+    changepasswordview.h\
+    chosepatientview.h\
+    doctorlistview.h\
+    patientinfoview.h\
+    patientlistview.h\
+    treatinfoview.h\
+    treatlistview.h\
+    treatview.h\
 
 FORMS    += \
     doctorregisterview.ui \
     loginview.ui \
     patientregisterview.ui \
     doctormainview.ui \
+    patientmainview.ui \
     selfinfoview.ui \
-    securityinfoview.ui \
-    changepasswordview.ui \
-    doctorlistview.ui \
-    patientinfoview.ui \
-    patientlistview.ui \
-    treatview.ui \
-    treatlistview.ui \
-    treatinfoview.ui \
-    chosepatientview.ui \
-    patientmainview.ui
+    securityinfoview.ui\
+    changepasswordview.ui\
+    chosepatientview.ui\
+    doctorlistview.ui\
+    patientinfoview.ui\
+    patientlistview.ui\
+    treatinfoview.ui\
+    treatlistview.ui\
+    treatview.ui\
 
 QT  += sql
 QT += network

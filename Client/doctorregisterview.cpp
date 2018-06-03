@@ -1,8 +1,6 @@
 #include "doctorregisterview.h"
 #include "ui_doctorregisterview.h"
 
-#include <QMessageBox>
-#include <network\chatclient.h>
 extern ChatClient *cc;
 
 DoctorRegisterView::DoctorRegisterView(QWidget *parent) :
@@ -113,7 +111,7 @@ void DoctorRegisterView::on_confirm_clicked()
     }
     if(flag)
     {
-        connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+        connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
         cc->sendSql("Select * from doctor where username = '"+ui->username->text()+"';",ChatClient::QUE);
     }
 }
@@ -188,11 +186,13 @@ void DoctorRegisterView::registerFailed()
     ui->username->setFocus();
 }
 //当服务器传回数据时被调用
-void DoctorRegisterView::getResult(QJsonArray arr)
+void DoctorRegisterView::getResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
-    if(arr.isEmpty())
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    qDebug() << resultSet.size();
+    if(resultSet.isEmpty())
     {
+        qDebug() << "accessible ??";
         emit accessibleUsername();
     }
     else
@@ -205,10 +205,10 @@ void DoctorRegisterView::doRegister()
 {
     connect(cc,SIGNAL(excSuccessfully()),this,SLOT(registerSuccessfully()));
     connect(cc,SIGNAL(failedInExc()),this,SLOT(registerFailed()));
-    cc->sendSql("Insert into doctor(username,password,name,sex,bornYear,department,tel,hireDate,position) "
-                "values('"+ui->username->text()+"','"+ui->password->text()+"','"+
+    cc->sendSql(QString("Insert into doctor(username,password,name,sex,bornYear,department,tel,hireDate,position) values('"+
+                ui->username->text()+"','"+ui->password->text()+"','"+
                 ui->name->text()+"','"+ui->sex->currentText()+"','"+ui->bornYear->text()+"','"+ui->office->currentText()+
-                "','"+ui->phoneNo->text()+"','"+ui->dateEdit->date().toString("yyyy-MM-dd")+"','"+ui->position->currentText()+"');",ChatClient::EXC);
+                "','"+ui->phoneNo->text()+"','"+ui->dateEdit->date().toString("yyyy-MM-dd")+"','"+ui->position->currentText()+"');"),ChatClient::EXC);
     ui->tip->setText("");
 }
 //当用户名验证已存在时被调用

@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <network/chatclient.h>
-#include <QJsonArray>
 #include <QStandardItem>
 #include <QMessageBox>
 #include <treatview.h>
@@ -22,7 +21,7 @@ public:
 
 private slots:
     void on_queryButton_clicked();
-    void getResult(QJsonArray);
+    void getResult(QList<QVariantMap*>);
 
     void on_tableWidget_clicked(const QModelIndex &index);
 

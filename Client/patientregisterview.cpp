@@ -99,15 +99,15 @@ void PatientRegisterView::on_confirm_clicked()
     }
     if(flag)
     {
-        connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+        connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
         cc->sendSql("Select * from patient where username = '"+ui->username->text()+"';",ChatClient::QUE);
     }
 }
 
-void PatientRegisterView::getResult(QJsonArray arr)
+void PatientRegisterView::getResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
-    if (arr.isEmpty())
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    if (resultSet.isEmpty())
     {
         connect(cc,SIGNAL(excSuccessfully()),this,SLOT(getRightMessage()));
         connect(cc,SIGNAL(failedInExc()),this,SLOT(getErrorMessage()));

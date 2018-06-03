@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <network/chatclient.h>
 #include <QMessageBox>
-#include <QJsonArray>
 extern int ID;
 extern int identity;
 extern ChatClient *cc;
@@ -24,7 +23,7 @@ private slots:
     void on_pushButton_clicked();
     void getErrorMessage();
     void getRightMessage();
-    void checkPassword(QJsonArray);
+    void checkPassword(QList<QVariantMap*>);
     void passwordError();
     void on_pushButton_2_clicked();
 

@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QDebug>
 #include <network/chatclient.h>
-#include <QJsonArray>
 #include <QMessageBox>
 #include <treatview.h>
 #include <treatlistview.h>
@@ -24,7 +23,7 @@ public:
 
 private slots:
     void on_backButton_clicked();
-    void getResult(QJsonArray);
+    void getResult(QList<QVariantMap*>);
     void on_treat_clicked();
 
     void on_treatMentButton_clicked();

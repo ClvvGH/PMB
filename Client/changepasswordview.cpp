@@ -46,7 +46,7 @@ void ChangePasswordView::on_pushButton_clicked()
     }
     if(flag)
     {
-        connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(checkPassword(QJsonArray)));
+        connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(checkPassword(QList<QVariantMap*>)));
         if (identity ==1)
         {
             cc->sendSql("Select * from doctor where DId = '"+QString("%1").arg(ID)+"' and password='"+ui->elderPassword->text()+"';",ChatClient::QUE);
@@ -76,10 +76,10 @@ void ChangePasswordView::getRightMessage()
     this->close();
 }
 
-void ChangePasswordView::checkPassword(QJsonArray arr)
+void ChangePasswordView::checkPassword(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(checkPassword(QJsonArray)));
-    if (arr.isEmpty())
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(checkPassword(QList<QVariantMap*>)));
+    if (resultSet.isEmpty())
     {
         passwordError();
     }

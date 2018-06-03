@@ -8,9 +8,10 @@ TreatInfoView::TreatInfoView(int row,int PId, QWidget *parent) :
     this->row = row;
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
+
     ui->stackedWidget->setCurrentIndex(0);
     ui->leftButton->setEnabled(false);
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
     cc->sendSql("Select * from treatment  natural join doctor where PId = '" +QString("%1").arg(PId)+"';",ChatClient::QUE);
 }
 
@@ -19,16 +20,17 @@ TreatInfoView::~TreatInfoView()
     delete ui;
 }
 
-void TreatInfoView::getResult(QJsonArray arr)
+void TreatInfoView::getResult(QList<QVariantMap*> resultSet)
 {
-    ui->DId->setText(QString("%1").arg(arr.at(row).toObject().take("DId").toInt()));
-    ui->doctorName->setText(arr.at(row).toObject().take("name").toString());
-    ui->disease->setText(arr.at(row).toObject().take("diseaseName").toString());
-    ui->date->setText(arr.at(row).toObject().take("date").toString());
-    ui->advice->setPlainText(arr.at(row).toObject().take("advice").toString());
-    ui->description->setPlainText(arr.at(row).toObject().take("description").toString());
-    ui->prescription->setPlainText(arr.at(row).toObject().take("prescription").toString());
-    ui->diagnose->setPlainText(arr.at(row).toObject().take("diagnose").toString());
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    ui->DId->setText(QString("%1").arg(resultSet.at(row)->take("DId").toInt()));
+    ui->doctorName->setText(resultSet.at(row)->take("name").toString());
+    ui->disease->setText(resultSet.at(row)->take("diseaseName").toString());
+    ui->date->setText(resultSet.at(row)->take("date").toString());
+    ui->advice->setPlainText(resultSet.at(row)->take("advice").toString());
+    ui->description->setPlainText(resultSet.at(row)->take("description").toString());
+    ui->prescription->setPlainText(resultSet.at(row)->take("prescription").toString());
+    ui->diagnose->setPlainText(resultSet.at(row)->take("diagnose").toString());
 }
 void TreatInfoView::on_leftButton_clicked()
 {

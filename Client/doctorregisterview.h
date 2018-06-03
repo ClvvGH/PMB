@@ -2,7 +2,8 @@
 #define DOCTORREGISTERVIEW_H
 
 #include <QDialog>
-#include <network\chatclient.h>
+#include <network/chatclient.h>
+#include <QMessageBox>
 extern ChatClient *cc;
 namespace Ui {
 class DoctorRegisterView;
@@ -38,7 +39,7 @@ private slots:
     void on_cancel_clicked();
     void doRegister();
     void sendMessage();
-    void getResult(QJsonArray);
+    void getResult(QList<QVariantMap*>);
 
 };
 #endif // DOCTORREGISTERVIEW_H

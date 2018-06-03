@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>player</class>
+ <widget class="QWidget" name="player">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>240</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>player</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Menu{border-image: url(&quot;://icon/bg1.jpg&quot;)}
+
+
+QLabel{
+background-color:rgba(0,0,0,0);
+border:none;
+min-height:3px;
+}</string>
+  </property>
+  <widget class="QToolButton" name="play">
+   <property name="geometry">
+    <rect>
+     <x>58</x>
+     <y>142</y>
+     <width>48</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style:flat;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="Phonon::SeekSlider" name="seekSlider">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>145</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Phonon::VolumeSlider" name="volumeSlider">
+   <property name="geometry">
+    <rect>
+     <x>14</x>
+     <y>210</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QVolumeSlider::add-page:vertical:
+     {     
+        background-color: rgb(37, 168, 198);
+        width:4px;
+     }</string>
+   </property>
+   <property name="muteVisible">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="time_1">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>145</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>10</y>
+     <width>145</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <property name="cursor" stdset="0">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255 ,0);
+selection-color: rgb(255, 255, 255);
+selection-background-color: rgb(255, 170, 255);
+</string>
+   </property>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>新建列</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QToolButton" name="backward">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>32</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style:flat;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>...</string>
+   </property>
+   <property name="icon">
+    <iconset resource="1.qrc">
+     <normaloff>:/icon/previous.png</normaloff>:/icon/previous.png</iconset>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="forward">
+   <property name="geometry">
+    <rect>
+     <x>122</x>
+     <y>150</y>
+     <width>32</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style:flat;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>...</string>
+   </property>
+   <property name="icon">
+    <iconset resource="1.qrc">
+     <normaloff>:/icon/next.png</normaloff>:/icon/next.png</iconset>
+   </property>
+  </widget>
+  <widget class="QLabel" name="songName">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>145</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>210</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:10px;
+background-color:rgb(255, 170, 255);
+color: rgb(255, 255, 255);
+</string>
+   </property>
+   <property name="text">
+    <string>主菜单</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="white" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>240</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255, 150);</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>240</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/icon/bg3.jpg);</string>
+   </property>
+  </widget>
+  <zorder>widget</zorder>
+  <zorder>white</zorder>
+  <zorder>play</zorder>
+  <zorder>seekSlider</zorder>
+  <zorder>volumeSlider</zorder>
+  <zorder>time_1</zorder>
+  <zorder>tableWidget</zorder>
+  <zorder>backward</zorder>
+  <zorder>forward</zorder>
+  <zorder>songName</zorder>
+  <zorder>pushButton_2</zorder>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Phonon::SeekSlider</class>
+   <extends>QWidget</extends>
+   <header location="global">phonon/seekslider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Phonon::VolumeSlider</class>
+   <extends>QWidget</extends>
+   <header location="global">phonon/volumeslider.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="1.qrc"/>
+ </resources>
+ <connections/>
+</ui>

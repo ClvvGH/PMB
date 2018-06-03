@@ -21,7 +21,7 @@ public:
 
 private slots:
     void on_confirm_clicked();
-    void getResult(QJsonArray);
+    void getResult(QList<QVariantMap*>);
     void getErrorMessage();
     void getRightMessage();
 

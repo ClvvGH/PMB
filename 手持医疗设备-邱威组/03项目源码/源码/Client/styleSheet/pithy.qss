@@ -1,0 +1,265 @@
+/*视图背景*/
+LoginView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+DoctorMainView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+.Widget{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+DoctorRegisterView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+TemperatureView{
+background-color:rgb(2, 255, 226);
+}
+PatientRegisterView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+SelfInfoView{
+background-color:rgb(2, 255, 226);
+}
+ChangePasswordView{
+background-color:rgb(2, 255, 226);
+}
+ChosePatientView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+DoctorListView{
+background-color:rgb(2, 255, 226);
+}
+electrocardiograph{
+background-color:rgb(2, 255, 226);
+}
+examinationList{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+PatientInfoView{
+background-color:rgb(2, 255, 226);
+}
+PatientListView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+PatientMainView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+SecurityInfoView{
+background-color:rgb(2, 255, 226);
+}
+temperatureView{
+background-color:rgb(2, 255, 226);
+}
+TreatInfoView{
+background-color:rgb(2, 255, 226);
+}
+TreatListView{
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb(0, 234, 147), stop:1 rgb(3, 255, 129));
+}
+TreatView{
+background-color:rgb(2, 255, 226);
+}
+ExaminationInfoView{
+background-color:rgb(2, 255, 226);
+}
+/*按钮*/
+
+QPushButton{
+background-color:rgb(70, 70, 70);
+border-radius: 10px;
+color: white;
+}
+QPushButton:pressed{
+background-color:rgba(70, 70, 70,170);
+border-radius: 10px;
+color: white;
+}
+QPushButton:disabled{
+background-color:rgb(170, 170, 170);
+border-radius: 10px;
+color: white;
+}
+DoctorMainView  QPushButton{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+DoctorMainView  QPushButton:pressed{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+PatientMainView  QPushButton{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+PatientMainView  QPushButton:pressed{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+examinationList  QPushButton{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+examinationList  QPushButton#backButton{
+background-color:rgb(70, 70, 70);
+border-radius: 10px;
+color: white;
+}
+examinationList  QPushButton#backButton:pressed{
+background-color:rgb(70, 70, 70,170);
+border-radius: 10px;
+color: white;
+}
+examinationList  QPushButton:pressed{
+        border:1px solid rgba(0,0,0,0);
+        background:rgba(0,0,0,0);
+}
+QPushButton#confirm{
+background-color:rgb(255, 92, 95);
+border-radius: 10px;
+color: white;
+}
+QPushButton#cancel{
+background-color:rgb(85, 170, 255);
+border-radius: 10px;
+color: white;
+}
+QPushButton#confirm:pressed{
+background-color:rgba(255, 92, 95,170);
+border-radius: 10px;
+color: white;
+}
+QPushButton#confirm:disabled{
+background-color:rgb(170, 170, 170);
+border-radius: 10px;
+color: white;
+}
+QPushButton#cancel:pressed{
+background-color:rgba(85, 170, 255,170);
+border-radius: 10px;
+color: white;
+}
+QPushButton#cancel:disabled{
+background-color:rgb(170, 170, 170);
+border-radius: 10px;
+color: white;
+}
+
+
+/*label*/
+DoctorMainView  QLabel{
+    background-color:rgba(255,255,255,0);
+    border:1px solid rgba(255,255,255,0);
+    color :rgb(150, 150, 150);
+    min-height:5px;
+}
+PatientMainView  QLabel{
+    background-color:rgba(255,255,255,0);
+    border:1px solid rgba(255,255,255,0);
+    color :rgb(150, 150, 150);
+    min-height:5px;
+}
+examinationList  QLabel{
+    background-color:rgba(255,255,255,0);
+    border:1px solid rgba(255,255,255,0);
+    color :rgb(150, 150, 150);
+    min-height:5px;
+}
+QLabel#time{
+    background-color:rgba(140,140,140,180);
+    border:1px solid rgba(140,140,140,180);
+    border-radius: 5px;
+    color :rgb(255,255,255);
+    min-height:20x;
+}
+QLabel#pageGround{
+    background-color:rgba(140,140,140,180);
+    border:none;
+    border-radius: 8px;
+}
+QLabel{
+background-color:rgba(255,255,255,255);
+border:1px solid rgba(255,255,255,255);
+border-top-left-radius: 5px;
+border-bottom-left-radius: 5px;
+color :rgb(150, 150, 150);
+min-height:25px;
+}
+QLabel#picture{
+border-radius: 5px;
+}
+
+
+/*输入框 */
+QLineEdit{
+border:1px solid white;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+min-height:25px;
+color :rgb(120, 120, 120);
+}
+
+/*ComboBox*/
+QComboBox{
+background-color:white;
+border-top-right-radius: 5px;
+border-bottom-right-radius: 5px;
+min-height:27px;
+color :rgb(150, 150, 150);
+}
+QComboBox:drop-down{
+border-radius:3px;
+}
+QComboBox::down-arrow{
+background-image:url(:/resource/drop-arrow.png);
+min-width:28px;
+min-height:20px;
+background-repeat:no-repeat;
+}
+
+/*DateEdit*/
+QDateEdit{
+background-color:white;
+border-top-right-radius: 5px;
+border-bottom-right-radius: 5px;
+min-height:27px;
+color :rgb(150, 150, 150);
+}
+
+
+/*radioButton*/
+QRadioButton::indicator {
+    width: 40px;
+    height: 40px;
+}
+QRadioButton#DoctorButton::indicator::unchecked {
+image: url(:/resource/unchecked2.png);
+}
+QRadioButton#DoctorButton::indicator::checked {
+image: url(:/resource/checked2.png);
+}
+QRadioButton#PatientButton::indicator::unchecked {
+image: url(:/resource/unchecked1.png);
+}
+QRadioButton#PatientButton::indicator::checked {
+image: url(:/resource/checked1.png);
+}
+
+/*tableWidget*/
+QTableWidget{
+gridline-color:white ;
+border: 1px outset white;
+selection-color: black;
+}
+QTableWidget QHeaderView{
+gridline-color:white ;
+}
+
+
+/*messageBox*/
+QMessageBox QLabel{
+color:black;
+}
+QMessageBox QPushButton{
+color:black;
+background-color:rgba(0,0,0,0);
+}

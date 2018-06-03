@@ -17,7 +17,7 @@ SelfInfoView::~SelfInfoView()
 
 void SelfInfoView::showInfo()
 {
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getAndShowResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getAndShowResult(QList<QVariantMap*>)));
     if (identity == 1)
     {
         ui->stackedWidget->setCurrentIndex(0);
@@ -30,27 +30,27 @@ void SelfInfoView::showInfo()
     }
 }
 
-void SelfInfoView::getAndShowResult(QJsonArray arr)
+void SelfInfoView::getAndShowResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getAndShowResult(QJsonArray)));
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getAndShowResult(QList<QVariantMap*>)));
     if (identity ==1)
     {
-        ui->name->setText(arr.at(0).toObject().take("name").toString());
-        ui->sex->setCurrentText(arr.at(0).toObject().take("sex").toString());
-        ui->bornYear->setText(QString("%1").arg(arr.at(0).toObject().take("bornYear").toInt()));
-        ui->age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-ui->bornYear->text().toInt()));
-        ui->tel->setText(arr.at(0).toObject().take("tel").toString());
-        ui->department->setCurrentText(arr.at(0).toObject().take("department").toString());
-        ui->position->setCurrentText(arr.at(0).toObject().take("position").toString());
+        ui->name->setText(resultSet.at(0)->take("name").toString());
+        ui->sex->setCurrentIndex(ui->sex->findText(resultSet.at(0)->take("sex").toString()));
+        ui->bornYear->setText(resultSet.at(0)->take("bornYear").toString());
+        ui->age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-ui->bornYear->text().toInt()+1));
+        ui->tel->setText(resultSet.at(0)->take("tel").toString());
+        ui->department->setCurrentIndex(ui->department->findText(resultSet.at(0)->take("department").toString()));
+        ui->position->setCurrentIndex(ui->position->findText(resultSet.at(0)->take("position").toString()));
         ui->stackedWidget->setCurrentIndex(0);
     }
     else
     {
-        ui->name_2->setText(arr.at(0).toObject().take("name").toString());
-        ui->sex_2->setCurrentText(arr.at(0).toObject().take("sex").toString());
-        ui->bornYear_2->setText(QString("%1").arg(arr.at(0).toObject().take("bornYear").toInt()));
+        ui->name_2->setText(resultSet.at(0)->take("name").toString());
+        ui->sex_2->setCurrentIndex(ui->sex->findText(resultSet.at(0)->take("sex").toString()));
+        ui->bornYear_2->setText(resultSet.at(0)->take("bornYear").toString());
         ui->age_2->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-ui->bornYear->text().toInt()+1));
-        ui->tel_2->setText(arr.at(0).toObject().take("tel").toString());
+        ui->tel_2->setText(resultSet.at(0)->take("tel").toString());
         ui->stackedWidget->setCurrentIndex(1);
     }
 }

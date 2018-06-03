@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <network/chatclient.h>
-#include <QJsonArray>
 #include <securityinfoview.h>
 #include <QMessageBox>
 #include <QDebug>
@@ -27,7 +26,7 @@ public:
 signals:
     void logout();
 private slots:
-    void getAndShowResult(QJsonArray);
+    void getAndShowResult(QList<QVariantMap*>);
     void getRightMessage();
     void getErrorMessage();
     void on_backButton_clicked();

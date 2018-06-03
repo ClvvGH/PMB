@@ -128,6 +128,15 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>DoctorButton</tabstop>
+  <tabstop>PatientButton</tabstop>
+  <tabstop>username</tabstop>
+  <tabstop>password</tabstop>
+  <tabstop>LoginButton</tabstop>
+  <tabstop>RegisterButton</tabstop>
+  <tabstop>Quitbutton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

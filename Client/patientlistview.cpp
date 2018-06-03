@@ -8,7 +8,7 @@ PatientListView::PatientListView(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignHCenter);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget->verticalHeader()->hide();
 }
 
@@ -29,14 +29,14 @@ void PatientListView::on_queryButton_clicked()
         sql += "and name like '%"+ui->name->text()+"%'";
     }
     sql += ";";
-    connect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
+    connect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
     cc->sendSql(sql,ChatClient::QUE);
 }
 
-void PatientListView::getResult(QJsonArray arr)
+void PatientListView::getResult(QList<QVariantMap*> resultSet)
 {
-    disconnect(cc,SIGNAL(getResultSet(QJsonArray)),this,SLOT(getResult(QJsonArray)));
-    if (arr.isEmpty())
+    disconnect(cc,SIGNAL(getResultSet(QList<QVariantMap*>)),this,SLOT(getResult(QList<QVariantMap*>)));
+    if (resultSet.isEmpty())
     {
         QMessageBox msgBox;
         msgBox.setText("没有结果");
@@ -45,7 +45,7 @@ void PatientListView::getResult(QJsonArray arr)
     }
     else
     {
-        int row = arr.size();
+        int row = resultSet.size();
         QStringList keys;
         ui->tableWidget->setRowCount(row);
         ui->tableWidget->setColumnCount(5);
@@ -67,10 +67,10 @@ void PatientListView::getResult(QJsonArray arr)
             sex->setTextAlignment(Qt::AlignCenter);
             age->setTextAlignment(Qt::AlignCenter);
             detail->setTextAlignment(Qt::AlignCenter);
-            id->setText(QString("%1").arg(arr.at(i).toObject().take("PId").toInt()));
-            name->setText(arr.at(i).toObject().take("name").toString());
-            sex->setText(arr.at(i).toObject().take("sex").toString());
-            age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-arr.at(i).toObject().take("bornYear").toInt()+1));
+            id->setText(QString("%1").arg(resultSet.at(i)->take("PId").toInt()));
+            name->setText(resultSet.at(i)->take("name").toString());
+            sex->setText(resultSet.at(i)->take("sex").toString());
+            age->setText(QString("%1").arg(QDate::currentDate().toString("yyyy").toInt()-resultSet.at(i)->take("bornYear").toString().toInt()+1));
             detail->setIcon(QIcon(":/resource/jump.png"));
             ui->tableWidget->setItem(i,0,id);
             ui->tableWidget->setItem(i,1,name);
